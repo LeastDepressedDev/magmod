@@ -13,12 +13,17 @@ const MagmodGlobalConfig = {
 
 
 async function dynamicTranslate(text) {
-  const result = await fetch("http://127.0.0.1:7195", {
-      "body": text,
-      "method": "POST"
-  });
 
-  return (await result.text());
+    const percentReg = /[0-9]*\%/;
+    const numericReg = /([0-9]+)|(-[0-9]+)/;
+    if (percentReg.exec(text) || numericReg.exec(text)) return text;
+
+    const result = await fetch("http://127.0.0.1:7195", {
+        "body": text,
+        "method": "POST"
+    });
+
+    return (await result.text());
 }
 
 function getScenePart(component) {

@@ -32,6 +32,9 @@ async function trans(text) {
 }
 
 const caching = new Map();
+// Setup default cache
+caching.set("ON", "ВКЛ");
+caching.set("OFF", "ВЫКЛ");
 
 const http = require('http');
 const server = http.createServer(async (req, res) => {
@@ -73,6 +76,7 @@ const server = http.createServer(async (req, res) => {
     console.log(e);
     res.end("Failed to translate!");
   }
+  // console.log(caching);
 });
 
 const PORT = 7195;
