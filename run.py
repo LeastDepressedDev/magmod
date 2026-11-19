@@ -1,8 +1,14 @@
+# 
+# Use this one goober to launch rpgm games that support "www"
+#
+
+
 import flask
+import subprocess
+import os
 
 app = flask.Flask("Runner")
-
-# Virginity - var: 201
+TRANSLATOR_ENDPOINT_NAME = "tep.js"
 
 @app.route("/")
 def rt():
@@ -16,4 +22,8 @@ def req(pth):
             return f.read()
     except e: print(e)
 
-app.run(port=8080)
+if __name__ == "__main__":
+    backsv = None
+    if os.path.exists(TRANSLATOR_ENDPOINT_NAME):
+        backsv = subprocess.Popen(f"node {TRANSLATOR_ENDPOINT_NAME}".split(" "))
+    app.run(port=8080)
